@@ -50,11 +50,6 @@
         model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"CallFrom"];
         model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"CallTime"];
         [callLog addObject:model];
-        NSLog(@"%@",model.callNumber);
-        NSLog(@"%@",model.callFrom);
-        NSLog(@"%@",model.callTime);
-
-
     }
     return [callMessageObject count];
 
