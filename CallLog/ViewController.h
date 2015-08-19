@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface ViewController : UIViewController
 
 @property (nonatomic) UITableView *callTableView;
+@property (nonatomic, assign) CGRect tableViewFrame;
+
 
 @end
 
