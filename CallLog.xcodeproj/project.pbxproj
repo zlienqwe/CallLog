@@ -15,6 +15,7 @@
 		8AD4ABCE1B82C2F600EC70EB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AD4ABCC1B82C2F600EC70EB /* LaunchScreen.xib */; };
 		8AD4ABDA1B82C2F600EC70EB /* CallLogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABD91B82C2F600EC70EB /* CallLogTests.m */; };
 		8AD4ABED1B84113800EC70EB /* callLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABEC1B84113800EC70EB /* callLogModel.m */; };
+		8AD4ABF71B84570A00EC70EB /* callMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD4ABF61B84570A00EC70EB /* callMessage.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		8AD4ABD91B82C2F600EC70EB /* CallLogTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallLogTests.m; sourceTree = "<group>"; };
 		8AD4ABEB1B84113800EC70EB /* callLogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = callLogModel.h; sourceTree = "<group>"; };
 		8AD4ABEC1B84113800EC70EB /* callLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = callLogModel.m; sourceTree = "<group>"; };
+		8AD4ABF61B84570A00EC70EB /* callMessage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = callMessage.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				8AD4ABBE1B82C2F600EC70EB /* Info.plist */,
 				8AD4ABBF1B82C2F600EC70EB /* main.m */,
+				8AD4ABF61B84570A00EC70EB /* callMessage.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AD4ABC91B82C2F600EC70EB /* Main.storyboard in Resources */,
+				8AD4ABF71B84570A00EC70EB /* callMessage.json in Resources */,
 				8AD4ABCE1B82C2F600EC70EB /* LaunchScreen.xib in Resources */,
 				8AD4ABCB1B82C2F600EC70EB /* Images.xcassets in Resources */,
 			);

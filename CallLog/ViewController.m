@@ -12,7 +12,7 @@
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    NSMutableArray *callLogNumber;
+    NSMutableArray *callMessageObject;
     NSMutableArray *callLogFrom;
     NSMutableArray *callLogTime;
     NSMutableArray *callLog;
@@ -36,24 +36,29 @@
 }
 
 
--(void) readySource{
-    callLogNumber = [[NSMutableArray alloc] initWithObjects:@"123123123123",@"234234234234",@"345345345345",@"456456456456",@"5657567567567",@"678678678678",@"789789789789",@"123123123123",@"234234234234",@"345345345345",@"456456456456",@"5657567567567",@"678678678678",@"789789789789",@"123123123123",@"234234234234",@"345345345345",@"456456456456",@"5657567567567",@"678678678678",@"789789789789",@"890890890890",@"90-90-90-90-", nil];
+-(NSInteger) readySource{
+    
+    NSData * callMessageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"callMessage" ofType:@"json"]];
+    NSError * error = nil;
+    callMessageObject = [NSJSONSerialization JSONObjectWithData:callMessageData options:NSJSONReadingMutableContainers error:&error];
+
     
     callLog = [[NSMutableArray alloc] init];
-    for (NSInteger index = 0; index < [callLogNumber count]; index++) {
-        callLogModel* model = [[callLogModel alloc] init];
-        NSString *callNum;
-
-        callNum = [callLogNumber objectAtIndex:index];
-        model.callNumber = [NSString stringWithFormat:@"%@",callNum];
-        model.callFrom = @"来源from";
-        model.callTime = @"2015-8-01";
-        
-        
+    for (NSInteger index = 0; index < [callMessageObject count]; index++) {
+        callLogModel *model = [[callLogModel alloc]init];
+        model.callNumber = [[callMessageObject objectAtIndex:index] objectForKey:@"CallNumber"];
+        model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"CallFrom"];
+        model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"CallTime"];
         [callLog addObject:model];
+        NSLog(@"%@",model.callNumber);
+        NSLog(@"%@",model.callFrom);
+        NSLog(@"%@",model.callTime);
+
+
     }
-    
-    
+    NSLog(@"%@",callLog);
+    return [callMessageObject count];
+
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,7 +112,7 @@
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return callLogNumber.count;
+    return [callMessageObject count];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,7 +127,7 @@
 {
     
     // 从数据源中删除
-    [callLogNumber removeObjectAtIndex:indexPath.row];
+    [callLogTime removeObjectAtIndex:indexPath.row];
     
     // 从列表中删除
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
