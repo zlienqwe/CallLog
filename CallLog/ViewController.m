@@ -56,7 +56,6 @@
 
 
     }
-    NSLog(@"%@",callLog);
     return [callMessageObject count];
 
 }
@@ -64,7 +63,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     static NSString *cellIdentifier = @"cellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     callLogModel *model = [callLog objectAtIndex:indexPath.row];
     
     UILabel * callNumber;
