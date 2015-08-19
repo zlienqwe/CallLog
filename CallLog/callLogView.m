@@ -8,7 +8,12 @@
 
 #import "callLogView.h"
 
-@implementation callLogView
+@implementation callLogView : UITableView
+
+
+
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
