@@ -127,7 +127,7 @@
 {
     
     // 从数据源中删除
-    [callLogTime removeObjectAtIndex:indexPath.row];
+    [callMessageObject removeObjectAtIndex:indexPath.row];
     
     // 从列表中删除
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
