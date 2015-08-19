@@ -33,25 +33,6 @@
     self.callTableView.dataSource = self;
     self.callTableView.delegate=self;
     [self.view addSubview:self.callTableView];
-    //
-//    callLogTable.singleCallLog = [[NSMutableArray alloc] initWithObjects:@"123123123123",@"234234234234",@"345345345345",@"456456456456",@"5657567567567",@"678678678678",@"789789789789",@"123123123123",@"234234234234",@"345345345345",@"456456456456",@"5657567567567",@"678678678678",@"789789789789",@"123123123123",@"234234234234",@"345345345345",@"456456456456",@"5657567567567",@"678678678678",@"789789789789",@"890890890890",@"90-90-90-90-", nil];
-//    NSMutableArray *callFroms = [NSMutableArray array];
-//    NSMutableArray *callTimes = [NSMutableArray array];
-//
-//    for (NSInteger index = 0; index < [callLogTable.singleCallLog count]; index++) {
-//        
-//        NSString *callFrom = [NSString stringWithFormat:@"来源"];
-//        NSString *callTime = [NSString stringWithFormat:@"2015.08.01"];
-//
-//        [callFroms addObject:callFrom];
-//        [callTimes addObject:callTime];
-////        [callTimes addObject:callTime];
-//    }
-//    callLogTable.callLogFrom = [[NSMutableArray alloc] initWithArray:callFroms];
-//    callLogTable.callLogTime = [[NSMutableArray alloc] initWithArray:callTimes];
-//    // Do any additional setup after loading the view, typically from a nib.
-////    callLogTable.callLogTime = [[NSMutableArray alloc] initWithArray:callTimes];
-//    [self.view addSubview:callLogTable];
 }
 
 
