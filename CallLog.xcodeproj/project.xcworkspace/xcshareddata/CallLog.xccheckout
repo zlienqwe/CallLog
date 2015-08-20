@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>80F6080C-9EAB-4820-BA56-A9E64B7D2EBB</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>CallLog</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>DBB5D5844B94A6C44033B2464FF2716875EAE81B</key>
 		<string>github.com:zlienqwe/CallLog.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CallLog.xcodeproj/project.xcworkspace</string>
+	<string>CallLog.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>DBB5D5844B94A6C44033B2464FF2716875EAE81B</key>

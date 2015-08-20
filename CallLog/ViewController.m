@@ -26,23 +26,90 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    [self readySource];
-    self.callTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, 320, self.view.frame.size.height-20) style:UITableViewStylePlain];
+//    [self readySource];
+   
 
-    self.callTableView.dataSource = self;
-    self.callTableView.delegate=self;
+    
+    
+    NSURL *url = [NSURL URLWithString:jsonSourceURLAddress];
+    
+    
+    
+    NSURLRequest    *urlRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
+    NSURLConnection *urlConnection = [NSURLConnection connectionWithRequest:urlRequest delegate:self];
+    
+    [urlConnection start];
+
+    
+    
+  
+
+    self.callTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, 320, self.view.frame.size.height-20) style:UITableViewStylePlain];
+    
     [self.view addSubview:self.callTableView];
+    self.callTableView.dataSource = self;
+    self.callTableView.delegate = self;
+
+
+
 }
+
+
+
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    UIAlertView * alertV = [[UIAlertView alloc] initWithTitle:@"网络连接失败" message:[NSString  stringWithFormat:@"%@",error] delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    [alertV show];
+}
+
+
+- (NSInteger)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    
+    NSError * error = nil;
+    callMessageObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    
+    
+        callLog = [[NSMutableArray alloc] init];
+    
+
+        for (NSInteger index = 0; index < [callMessageObject count]; index++) {
+            callLogModel *model = [[callLogModel alloc]init];
+//            NSLog(@"%@", [[callMessageObject objectAtIndex:index] objectForKey:@"weather"]);
+            
+            model.callNumber = [[callMessageObject objectAtIndex:index] objectForKey:@"phonenumber"] ;
+            model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"location"];
+            model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"calltime"];
+            NSLog(@"%@",model.callNumber);
+            [callLog addObject:model];
+        }
+    
+    
+    [self.callTableView reloadData];
+    
+    
+    return [callMessageObject count];
+
+//
+}
+
+
+
+
+
 
 
 -(NSInteger) readySource{
     
     NSData * callMessageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"callMessage" ofType:@"json"]];
+    NSString* newStr = [[NSString alloc] initWithData:callMessageData encoding:NSUTF8StringEncoding];
+
+    NSLog(@"%@",newStr);
     NSError * error = nil;
     callMessageObject = [NSJSONSerialization JSONObjectWithData:callMessageData options:NSJSONReadingMutableContainers error:&error];
-
-    
     callLog = [[NSMutableArray alloc] init];
     for (NSInteger index = 0; index < [callMessageObject count]; index++) {
         callLogModel *model = [[callLogModel alloc]init];
@@ -50,6 +117,8 @@
         model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"CallFrom"];
         model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"CallTime"];
         [callLog addObject:model];
+        
+
     }
     return [callMessageObject count];
 
@@ -101,11 +170,13 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     return 75;
 }
 
+
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"%lu",(unsigned long)[callMessageObject count]);
     return [callMessageObject count];
 }
 
@@ -117,6 +188,7 @@
 {
     return @"删除";
 }
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -134,3 +206,4 @@
 }
 
 @end
+
