@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
-
 #import "callLogModel.h"
+#import "CallHistoryCell.h"
+#import "UrlJSON.h"
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -28,149 +29,77 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-//    [self readySource];
-   
-
+    
+    callMessageObject = [UrlJSON netfileContentsJSONString:jsonSourceURLAddress];
     
     
-    NSURL *url = [NSURL URLWithString:jsonSourceURLAddress];
-    
-    
-    
-    NSURLRequest    *urlRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-    NSURLConnection *urlConnection = [NSURLConnection connectionWithRequest:urlRequest delegate:self];
-    
-    [urlConnection start];
-
-    
-    
-  
-
     self.callTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, 320, self.view.frame.size.height-20) style:UITableViewStylePlain];
     
     [self.view addSubview:self.callTableView];
     self.callTableView.dataSource = self;
     self.callTableView.delegate = self;
-
-
-
+    
+    
+    
 }
 
 
 
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIAlertView * alertV = [[UIAlertView alloc] initWithTitle:@"网络连接失败" message:[NSString  stringWithFormat:@"%@",error] delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-    [alertV show];
-}
-
-
-- (NSInteger)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
+    static NSString *CellWithIdentifier = @"Cell";
+    CallHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellWithIdentifier];
     
-    NSError * error = nil;
-    callMessageObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    
-    
-        callLog = [[NSMutableArray alloc] init];
-    
-
-        for (NSInteger index = 0; index < [callMessageObject count]; index++) {
-            callLogModel *model = [[callLogModel alloc]init];
-//            NSLog(@"%@", [[callMessageObject objectAtIndex:index] objectForKey:@"weather"]);
-            
-            model.callNumber = [[callMessageObject objectAtIndex:index] objectForKey:@"phonenumber"] ;
-            model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"location"];
-            model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"calltime"];
-            NSLog(@"%@",model.callNumber);
-            [callLog addObject:model];
-        }
-    
-    
-    [self.callTableView reloadData];
-    
-    
-    return [callMessageObject count];
-
-//
-}
-
-
-
-
-
-
-
--(NSInteger) readySource{
-    
-    NSData * callMessageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"callMessage" ofType:@"json"]];
-    NSString* newStr = [[NSString alloc] initWithData:callMessageData encoding:NSUTF8StringEncoding];
-
-    NSLog(@"%@",newStr);
-    NSError * error = nil;
-    callMessageObject = [NSJSONSerialization JSONObjectWithData:callMessageData options:NSJSONReadingMutableContainers error:&error];
-    callLog = [[NSMutableArray alloc] init];
-    for (NSInteger index = 0; index < [callMessageObject count]; index++) {
-        callLogModel *model = [[callLogModel alloc]init];
-        model.callNumber = [[callMessageObject objectAtIndex:index] objectForKey:@"CallNumber"];
-        model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"CallFrom"];
-        model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"CallTime"];
-        [callLog addObject:model];
-        
-
-    }
-    return [callMessageObject count];
-
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    static NSString *cellIdentifier = @"cellIdentifier";
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    callLogModel *model = [callLog objectAtIndex:indexPath.row];
-    
-    UILabel * callNumber;
-    UILabel * callFrom;
-    UILabel * callTime;
     if (cell == nil) {
-        
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-        CGRect callNumF = CGRectMake(5, 0, 230, 64);
-        callNumber = [[UILabel alloc] initWithFrame:callNumF];
-        callNumber.font = [UIFont systemFontOfSize:16];
-        [cell addSubview:callNumber];
-        
-        
-        CGRect callFromF = CGRectMake(5, 45, 230, 24);
-        callFrom = [[UILabel alloc] initWithFrame:callFromF];
-        callFrom.textColor = [UIColor redColor];
-        callFrom.font = [UIFont systemFontOfSize:12];
-        [cell addSubview:callFrom];
-        
-        
-        CGRect callTimeF = CGRectMake(230, 23, 95, 24);
-        callTime = [[UILabel alloc] initWithFrame:callTimeF];
-        callTime.font = [UIFont systemFontOfSize:12];
-
-        [cell addSubview:callTime];
+        cell = [[CallHistoryCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellWithIdentifier];
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         
     }
     
-//    callNumber.text =@"ss";
-    callNumber.text = model.callNumber;
-    callFrom.text = model.callFrom;
-    callTime.text = model.callTime;
-
+    NSUInteger row = [indexPath row];
+    
+    cell.callNumber.text = [[callMessageObject valueForKey:@"phonenumber"] objectAtIndex:row];
+    //    cell.textLabel.text=cell.callNumber.text;
+    cell.callFrom.text = [[callMessageObject valueForKey:@"location"]objectAtIndex:row];
+    cell.callTime.text =[[callMessageObject valueForKey:@"calltime"] objectAtIndex:row];
+    NSLog(@"%@",cell.callNumber);
+    
     return cell;
 }
 
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+//
+//
+//-(NSInteger) readySource{
+//
+//    NSData * callMessageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"callMessage" ofType:@"json"]];
+//
+//    NSError * error = nil;
+//    callMessageObject = [NSJSONSerialization JSONObjectWithData:callMessageData options:NSJSONReadingMutableContainers error:&error];
+//    callLog = [[NSMutableArray alloc] init];
+//    for (NSInteger index = 0; index < [callMessageObject count]; index++) {
+//        callLogModel *model = [[callLogModel alloc]init];
+//        model.callNumber = [[callMessageObject objectAtIndex:index] objectForKey:@"CallNumber"];
+//        model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"CallFrom"];
+//        model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"CallTime"];
+//        [callLog addObject:model];
+//
+//
+//    }
+//    return [callMessageObject count];
+//
+//}
+
+
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     return 75;
 }
 
@@ -186,12 +115,12 @@
 }
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     return @"删除";
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     // 从数据源中删除
     [callMessageObject removeObjectAtIndex:indexPath.row];
     

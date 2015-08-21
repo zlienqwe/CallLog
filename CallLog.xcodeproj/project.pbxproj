@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0E6FE91B86C87A00AEAD78 /* UrlJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E6FE81B86C87A00AEAD78 /* UrlJSON.m */; };
+		8A0E6FED1B86C8DC00AEAD78 /* CallHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E6FEC1B86C8DC00AEAD78 /* CallHistoryCell.m */; };
 		8AD4ABC01B82C2F600EC70EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABBF1B82C2F600EC70EB /* main.m */; };
 		8AD4ABC31B82C2F600EC70EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABC21B82C2F600EC70EB /* AppDelegate.m */; };
 		8AD4ABC61B82C2F600EC70EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABC51B82C2F600EC70EB /* ViewController.m */; };
@@ -29,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A0E6FE71B86C87A00AEAD78 /* UrlJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlJSON.h; sourceTree = "<group>"; };
+		8A0E6FE81B86C87A00AEAD78 /* UrlJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlJSON.m; sourceTree = "<group>"; };
+		8A0E6FEB1B86C8DC00AEAD78 /* CallHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallHistoryCell.h; sourceTree = "<group>"; };
+		8A0E6FEC1B86C8DC00AEAD78 /* CallHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallHistoryCell.m; sourceTree = "<group>"; };
 		8AD4ABBA1B82C2F600EC70EB /* CallLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CallLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD4ABBE1B82C2F600EC70EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD4ABBF1B82C2F600EC70EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -66,6 +72,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A0E6FE61B86C85900AEAD78 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8A0E6FE71B86C87A00AEAD78 /* UrlJSON.h */,
+				8A0E6FE81B86C87A00AEAD78 /* UrlJSON.m */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		8A0E6FEA1B86C89C00AEAD78 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8A0E6FEB1B86C8DC00AEAD78 /* CallHistoryCell.h */,
+				8A0E6FEC1B86C8DC00AEAD78 /* CallHistoryCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		8AD4ABB11B82C2F600EC70EB = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +111,9 @@
 		8AD4ABBC1B82C2F600EC70EB /* CallLog */ = {
 			isa = PBXGroup;
 			children = (
-				8AD4ABEA1B8410D300EC70EB /* model */,
+				8A0E6FEA1B86C89C00AEAD78 /* Cells */,
+				8A0E6FE61B86C85900AEAD78 /* Services */,
+				8AD4ABEA1B8410D300EC70EB /* Models */,
 				8AD4ABC11B82C2F600EC70EB /* AppDelegate.h */,
 				8AD4ABC21B82C2F600EC70EB /* AppDelegate.m */,
 				8AD4ABC41B82C2F600EC70EB /* ViewController.h */,
@@ -128,13 +154,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8AD4ABEA1B8410D300EC70EB /* model */ = {
+		8AD4ABEA1B8410D300EC70EB /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				8AD4ABEB1B84113800EC70EB /* callLogModel.h */,
 				8AD4ABEC1B84113800EC70EB /* callLogModel.m */,
 			);
-			name = model;
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,8 +264,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A0E6FED1B86C8DC00AEAD78 /* CallHistoryCell.m in Sources */,
 				8AD4ABC61B82C2F600EC70EB /* ViewController.m in Sources */,
 				8AD4ABC31B82C2F600EC70EB /* AppDelegate.m in Sources */,
+				8A0E6FE91B86C87A00AEAD78 /* UrlJSON.m in Sources */,
 				8AD4ABC01B82C2F600EC70EB /* main.m in Sources */,
 				8AD4ABED1B84113800EC70EB /* callLogModel.m in Sources */,
 			);
