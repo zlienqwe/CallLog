@@ -11,16 +11,16 @@
 #import "CallHistoryCell.h"
 #import "UrlJSON.h"
 #import "Service.h"
+#import "ReadPlist.h"
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *callMessageObject;
-    NSMutableArray *callLogFrom;
-    NSMutableArray *callLogTime;
     NSMutableArray *callLog;
-    NSMutableArray *information;
     Service *service;
     UIActivityIndicatorView *activityIndicator;
+    ReadPlist *readPlist;
+    
 }
 @end
 
@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     
     service=[Service new];
+    readPlist = [ReadPlist new];
     callMessageObject = [service readJson:Local];
     
     [self initView];
@@ -42,12 +43,12 @@
 }
 -(void)initView
 {
-    CGRect frame=CGRectMake(8, 65, 350, 500);
+    CGRect frame=CGRectMake(8, 65, 350, self.view.frame.size.height-20);
     self.callTableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
     self.callTableView.dataSource = self;
     self.callTableView.delegate = self;
     
-    CGRect swichframe=CGRectMake(250, 30, 50, 25);
+    CGRect swichframe=CGRectMake(250, 30, 50, 50);
     self.switchbtn=[[UISwitch alloc] initWithFrame:swichframe];
     [self.switchbtn addTarget: self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -112,8 +113,8 @@
     }
     else{
         [activityIndicator startAnimating];
-        
-        [service urlJson:JsonSourceURLAddress
+        NSString *url = [readPlist urlAddress];
+        [service urlJson:url
                 AsynBack:^(NSURLResponse *response, NSData *data, NSError *error){
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [activityIndicator stopAnimating];
@@ -136,6 +137,7 @@
     }
     [self.callTableView reloadData];
 
+    
 }
 
 

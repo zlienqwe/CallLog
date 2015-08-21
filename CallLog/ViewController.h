@@ -11,9 +11,7 @@
 @interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) UITableView *callTableView;
-@property (nonatomic, assign) CGRect tableViewFrame;
 @property (nonatomic) UISwitch *switchbtn;
-@property (nonatomic) NSMutableArray *dataList;
 
 @end
 
