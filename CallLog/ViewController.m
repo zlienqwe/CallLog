@@ -32,7 +32,6 @@
     
     callMessageObject = [UrlJSON netfileContentsJSONString:jsonSourceURLAddress];
     
-    
     self.callTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, 320, self.view.frame.size.height-20) style:UITableViewStylePlain];
     
     [self.view addSubview:self.callTableView];
@@ -65,7 +64,6 @@
     //    cell.textLabel.text=cell.callNumber.text;
     cell.callFrom.text = [[callMessageObject valueForKey:@"location"]objectAtIndex:row];
     cell.callTime.text =[[callMessageObject valueForKey:@"calltime"] objectAtIndex:row];
-    NSLog(@"%@",cell.callNumber);
     
     return cell;
 }
@@ -105,7 +103,6 @@
 
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"%lu",(unsigned long)[callMessageObject count]);
     return [callMessageObject count];
 }
 

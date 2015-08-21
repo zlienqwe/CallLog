@@ -25,7 +25,6 @@
     
     
     NSMutableArray *jsonToDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
-    NSLog(@"!!!!!!!!!!!!");
     return [NSMutableArray arrayWithArray:jsonToDictionary];
 }
 
