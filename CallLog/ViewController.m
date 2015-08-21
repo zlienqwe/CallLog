@@ -113,6 +113,7 @@
     }
     else{
         [activityIndicator startAnimating];
+
         NSString *url = [readPlist urlAddress];
         [service urlJson:url
                 AsynBack:^(NSURLResponse *response, NSData *data, NSError *error){
@@ -120,7 +121,8 @@
                         [activityIndicator stopAnimating];
                     });
                     if (error) {
-                        NSLog(@"Httperror:%@", error.localizedDescription);
+                        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请重试" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+                        [alter show];
                     }else{
                         __autoreleasing NSError* error = nil;
                         id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];

@@ -11,7 +11,6 @@
 @implementation ReadPlist
 -(NSString *) urlAddress{
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"URL" ofType:@"plist"];
-    NSLog(@"%@",plistPath);
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     NSString *urlProtocal = [data objectForKey:@"protocal"];
     NSString *urlDomain = [data objectForKey:@"domain"];
