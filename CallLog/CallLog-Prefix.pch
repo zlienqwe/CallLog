@@ -8,7 +8,8 @@
 
 #ifndef CallLog_CallLog_Prefix_pch
 #define CallLog_CallLog_Prefix_pch
-#define jsonSourceURLAddress @"http://www.aliexprice.com/callhistory.index"
+#define Local @"callMessage.json"
+#define JsonSourceURLAddress @"http://www.aliexprice.com/callhistory.index"
 
 
 // Include any system framework and library headers here that should be included in all compilation units.

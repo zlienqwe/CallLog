@@ -10,6 +10,7 @@
 
 @interface UrlJSON : NSObject
 
-+(NSMutableArray *)netfileContentsJSONString:(NSString*)jsonUrl;
+typedef void (^Asyn)(NSURLResponse* response, NSData* data, NSError* connectionError);
 
+-(void)netfileWithContentsOfJSONString:(NSString*)jsonurl AsynBack:(Asyn) asynback;
 @end

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8A0E6FE91B86C87A00AEAD78 /* UrlJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E6FE81B86C87A00AEAD78 /* UrlJSON.m */; };
 		8A0E6FED1B86C8DC00AEAD78 /* CallHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E6FEC1B86C8DC00AEAD78 /* CallHistoryCell.m */; };
+		8A0E6FF31B86EDC400AEAD78 /* CallHistoryMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E6FF21B86EDC400AEAD78 /* CallHistoryMapping.m */; };
+		8A0E6FFA1B86F04500AEAD78 /* ReadJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E6FF91B86F04500AEAD78 /* ReadJson.m */; };
+		8A0E6FFD1B86F07700AEAD78 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E6FFC1B86F07700AEAD78 /* Service.m */; };
 		8AD4ABC01B82C2F600EC70EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABBF1B82C2F600EC70EB /* main.m */; };
 		8AD4ABC31B82C2F600EC70EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABC21B82C2F600EC70EB /* AppDelegate.m */; };
 		8AD4ABC61B82C2F600EC70EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4ABC51B82C2F600EC70EB /* ViewController.m */; };
@@ -35,6 +38,12 @@
 		8A0E6FE81B86C87A00AEAD78 /* UrlJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlJSON.m; sourceTree = "<group>"; };
 		8A0E6FEB1B86C8DC00AEAD78 /* CallHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallHistoryCell.h; sourceTree = "<group>"; };
 		8A0E6FEC1B86C8DC00AEAD78 /* CallHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallHistoryCell.m; sourceTree = "<group>"; };
+		8A0E6FF11B86EDC400AEAD78 /* CallHistoryMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallHistoryMapping.h; sourceTree = "<group>"; };
+		8A0E6FF21B86EDC400AEAD78 /* CallHistoryMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallHistoryMapping.m; sourceTree = "<group>"; };
+		8A0E6FF81B86F04500AEAD78 /* ReadJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadJson.h; sourceTree = "<group>"; };
+		8A0E6FF91B86F04500AEAD78 /* ReadJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadJson.m; sourceTree = "<group>"; };
+		8A0E6FFB1B86F07700AEAD78 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
+		8A0E6FFC1B86F07700AEAD78 /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
 		8AD4ABBA1B82C2F600EC70EB /* CallLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CallLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD4ABBE1B82C2F600EC70EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD4ABBF1B82C2F600EC70EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -77,6 +86,12 @@
 			children = (
 				8A0E6FE71B86C87A00AEAD78 /* UrlJSON.h */,
 				8A0E6FE81B86C87A00AEAD78 /* UrlJSON.m */,
+				8A0E6FF11B86EDC400AEAD78 /* CallHistoryMapping.h */,
+				8A0E6FF21B86EDC400AEAD78 /* CallHistoryMapping.m */,
+				8A0E6FF81B86F04500AEAD78 /* ReadJson.h */,
+				8A0E6FF91B86F04500AEAD78 /* ReadJson.m */,
+				8A0E6FFB1B86F07700AEAD78 /* Service.h */,
+				8A0E6FFC1B86F07700AEAD78 /* Service.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -264,12 +279,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A0E6FF31B86EDC400AEAD78 /* CallHistoryMapping.m in Sources */,
 				8A0E6FED1B86C8DC00AEAD78 /* CallHistoryCell.m in Sources */,
 				8AD4ABC61B82C2F600EC70EB /* ViewController.m in Sources */,
+				8A0E6FFA1B86F04500AEAD78 /* ReadJson.m in Sources */,
 				8AD4ABC31B82C2F600EC70EB /* AppDelegate.m in Sources */,
 				8A0E6FE91B86C87A00AEAD78 /* UrlJSON.m in Sources */,
 				8AD4ABC01B82C2F600EC70EB /* main.m in Sources */,
 				8AD4ABED1B84113800EC70EB /* callLogModel.m in Sources */,
+				8A0E6FFD1B86F07700AEAD78 /* Service.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

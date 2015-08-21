@@ -10,6 +10,7 @@
 #import "callLogModel.h"
 #import "CallHistoryCell.h"
 #import "UrlJSON.h"
+#import "Service.h"
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -17,6 +18,9 @@
     NSMutableArray *callLogFrom;
     NSMutableArray *callLogTime;
     NSMutableArray *callLog;
+    NSMutableArray *information;
+    Service *service;
+    UIActivityIndicatorView *activityIndicator;
 }
 @end
 
@@ -28,42 +32,66 @@
 
 - (void)viewDidLoad {
     
-    [super viewDidLoad];
+    service=[Service new];
+    callMessageObject = [service readJson:Local];
     
-    callMessageObject = [UrlJSON netfileContentsJSONString:jsonSourceURLAddress];
+    [self initView];
+
     
-    self.callTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, 320, self.view.frame.size.height-20) style:UITableViewStylePlain];
     
-    [self.view addSubview:self.callTableView];
+}
+-(void)initView
+{
+    CGRect frame=CGRectMake(8, 65, 350, 500);
+    self.callTableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
     self.callTableView.dataSource = self;
     self.callTableView.delegate = self;
     
+    CGRect swichframe=CGRectMake(250, 30, 50, 25);
+    self.switchbtn=[[UISwitch alloc] initWithFrame:swichframe];
+    [self.switchbtn addTarget: self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
     
+
+    [self.view addSubview:self.switchbtn];
+    
+    activityIndicator = [[UIActivityIndicatorView alloc]
+                         initWithActivityIndicatorStyle:
+                         UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicator.color = [UIColor blackColor];
+    activityIndicator.center =self.view.center;
+    
+    // activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    [self.view addSubview:self.switchbtn];
+    [self.view addSubview:self.callTableView];
+    [self.view addSubview:activityIndicator];
     
 }
 
 
 
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+
     static NSString *CellWithIdentifier = @"Cell";
     CallHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellWithIdentifier];
     
     if (cell == nil) {
         cell = [[CallHistoryCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellWithIdentifier];
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         
     }
     
     NSUInteger row = [indexPath row];
-    
-    cell.callNumber.text = [[callMessageObject valueForKey:@"phonenumber"] objectAtIndex:row];
-    //    cell.textLabel.text=cell.callNumber.text;
-    cell.callFrom.text = [[callMessageObject valueForKey:@"location"]objectAtIndex:row];
-    cell.callTime.text =[[callMessageObject valueForKey:@"calltime"] objectAtIndex:row];
+    callLogModel *CallLog = (callLogModel*)[callMessageObject objectAtIndex:row];
+
+    cell.callNumber.text = CallLog.callNumber;
+    cell.callFrom.text = CallLog.callFrom;
+    cell.callTime.text =CallLog.callTime;
     
     return cell;
 }
@@ -71,27 +99,67 @@
 
 
 
+
+
+
+-(void) switchValueChanged:(id)sender{
+    [callMessageObject removeAllObjects];
+    if (!self.switchbtn.on) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator stopAnimating];
+        });
+        callMessageObject= [service readJson:Local];
+    }
+    else{
+        [activityIndicator startAnimating];
+        
+        [service urlJson:JsonSourceURLAddress
+                AsynBack:^(NSURLResponse *response, NSData *data, NSError *error){
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [activityIndicator stopAnimating];
+                    });
+                    if (error) {
+                        NSLog(@"Httperror:%@", error.localizedDescription);
+                    }else{
+                        __autoreleasing NSError* error = nil;
+                        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+                        
+                        CallHistoryMapping *_callHistoryMapping = [[CallHistoryMapping alloc]initWithPhoneNumber:@"phonenumber" And:@"location" And:@"calltime"];
+                        
+                        callMessageObject=[_callHistoryMapping mappingCallHistoryArray:result];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.callTableView reloadData];
+                        });
+                    }
+                }
+         ];
+    }
+    [self.callTableView reloadData];
+
+}
+
+
 //
-//
-//-(NSInteger) readySource{
-//
-//    NSData * callMessageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"callMessage" ofType:@"json"]];
-//
-//    NSError * error = nil;
-//    callMessageObject = [NSJSONSerialization JSONObjectWithData:callMessageData options:NSJSONReadingMutableContainers error:&error];
-//    callLog = [[NSMutableArray alloc] init];
-//    for (NSInteger index = 0; index < [callMessageObject count]; index++) {
-//        callLogModel *model = [[callLogModel alloc]init];
-//        model.callNumber = [[callMessageObject objectAtIndex:index] objectForKey:@"CallNumber"];
-//        model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"CallFrom"];
-//        model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"CallTime"];
-//        [callLog addObject:model];
-//
-//
-//    }
-//    return [callMessageObject count];
-//
-//}
+
+-(NSInteger) readySource{
+
+    NSData * callMessageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"callMessage" ofType:@"json"]];
+
+    NSError * error = nil;
+    callMessageObject = [NSJSONSerialization JSONObjectWithData:callMessageData options:NSJSONReadingMutableContainers error:&error];
+    callLog = [[NSMutableArray alloc] init];
+    for (NSInteger index = 0; index < [callMessageObject count]; index++) {
+        callLogModel *model = [[callLogModel alloc]init];
+        model.callNumber = [[callMessageObject objectAtIndex:index] objectForKey:@"CallNumber"];
+        model.callFrom = [[callMessageObject objectAtIndex:index] objectForKey:@"CallFrom"];
+        model.callTime = [[callMessageObject objectAtIndex:index] objectForKey:@"CallTime"];
+        [callLog addObject:model];
+
+
+    }
+    return [callMessageObject count];
+
+}
 
 
 

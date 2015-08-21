@@ -11,8 +11,8 @@
 @interface callLogModel : NSObject
 
 
-@property (copy, nonatomic) NSString * callNumber;
-@property (copy, nonatomic) NSString * callFrom;
-@property (copy, nonatomic) NSString * callTime;
+@property NSString * callNumber;
+@property NSString * callFrom;
+@property NSString * callTime;
 
 @end
